@@ -1,5 +1,8 @@
 use regex::Regex;
-use std::fs::read_to_string;
+use std::{
+    fs::{read_to_string, File},
+    io::Write,
+};
 
 fn starts_with_url_prefix(s: &str) -> bool {
     s.starts_with("https://younghakim7.github.io/")
@@ -42,4 +45,6 @@ fn main() {
 
     // Print the modified content
     println!("{}", result);
+    let mut file = File::create("output.xml").expect("create failed");
+    file.write_all(result.as_bytes()).expect("write failed");
 }
